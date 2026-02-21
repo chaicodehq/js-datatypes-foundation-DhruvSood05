@@ -53,20 +53,56 @@
  */
 export function writePostcard(sender, receiver, message) {
   // Your code here
+  if (
+    [sender, receiver, message].some(
+      (params) => typeof params !== "string" || params.trim() === "",
+    )
+  ) {
+    return "";
+  }
+  return `Priy ${receiver},\n\n${message}\n\nAapka/Aapki,\n${sender}`;
 }
 
 export function isValidPincode(code) {
   // Your code here
+  if (typeof code !== "string") {
+    return false;
+  }
+
+  if (code.startsWith("0") || code.length !== 6 || !/^\d+$/.test(code)) {
+    return false;
+  }
+
+  return true;
 }
 
 export function formatPostcardField(label, value, width) {
   // Your code here
+  if (typeof label !== "string" || typeof value !== "string") {
+    return "";
+  }
+
+  const formattedVersion = label.padEnd(width || 12) + ": " + value;
+  return formattedVersion;
 }
 
 export function isFromState(address, stateCode) {
   // Your code here
+  if ([address, stateCode].some((param) => typeof param !== "string")) {
+    return false;
+  }
+
+  const isEndWith = address.endsWith(stateCode);
+  return isEndWith;
 }
 
 export function countVowels(message) {
   // Your code here
+  if (typeof message !== "string") {
+    return 0;
+  }
+
+  const matches = message.match(/[aeiouAEIOU]/g);
+
+  return matches ? matches.length : 0;
 }
